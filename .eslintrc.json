@@ -1,0 +1,56 @@
+{
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": [
+            "error",
+            "tab"
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ],
+        "prefer-template": 2,
+        "template-curly-spacing": [
+            "error",
+            "never"
+        ],
+        "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+        "no-eval": 2,
+        "no-empty-function": 2,
+        "no-implied-eval": 2,
+        "no-return-await": 1,
+        "no-lonely-if": 2,
+        "camelcase": [
+            0,
+            { "properties": "always" }
+        ],
+        "no-multiple-empty-lines": 1,
+        "no-nested-ternary": 0,
+        "spaced-comment": [
+            "warn",
+            "always"
+        ],
+        "arrow-spacing": [
+            "warn",
+            { "before": true, "after": true }
+        ],
+        "no-var": 2,
+        "prefer-const": 1,
+        "prefer-numeric-literals": 1
+    }
+}
