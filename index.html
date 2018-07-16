@@ -16,47 +16,93 @@
 </head>
 
 <body>
+    <div class="loading animated">
+        <center>
+            <h1 class="loading-title animated zoomInDown">Remindo</h1>
+            <br>
+            <div class="preloader-wrapper small active animated" style="display: none;">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                    <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+            
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                    <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+            
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                    <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+            
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                    <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </center>
+    </div>
+
     <center>
         <h1 class="main-title animated zoomInDown">Remindo</h1>
         <hr class="horizontal-line slideInUp">
     </center>
 
     
-    <div class="creation-menu" style="display: none;">
-        <center>
+    <div class="creation-menu animated" style="display: none;">
         <div class="row">
-            <div class="col s12 m6">
-              <div class="card blue-grey darken-1 z-depth-5">
+            <div class="col s12 m12">
+              <div class="card red darken-1 z-depth-5">
+
                 <div class="card-content white-text">
-
-                    <!-- Text input area for title -->
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="icon_prefix" type="text" class="validate">
-                        <label for="icon_prefix">First Name</label>
-                    </div>
-
-                    <!-- Text input area for description -->
                     <div class="row">
-                        <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
-                            <i class="material-icons prefix">mode_edit</i>
-                            <textarea id="icon_prefix2" class="materialize-textarea reminder-creation-description"></textarea>
-                            </div>
+                        <!-- Text input area for title -->
+                        <div class="input-field col s9">
+                            <i class="material-icons prefix">title</i>
+                            <input id="icon_prefix" type="text" data-length="128" class="validate">
+                            <label for="icon_prefix">Title</label>
                         </div>
-                        </form>
                     </div>
-                            
+
+                    <div class="row">
+                        <!-- Text input area for description -->
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">description</i>
+                            <textarea id="icon_prefix2" class="materialize-textarea reminder-creation-description"></textarea>
+                            <label for="icon_prefix2">Description</label>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="card-action">
-                  <a href="#" onclick="saveReminder(element)">Save</a>
-                  <a href="#" onclick="reminderCreationMenu()">Cancel</a>
+                  <a href="#" class="btn yellow darken-2" onclick="saveReminder(element)">Save</a>
+                  <a href="#" class="btn yellow darken-2" onclick="reminderCreationMenu()">Cancel</a>
                 </div>
+
               </div>
             </div>
           </div>
-        </center>
     </div>
     
 
