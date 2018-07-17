@@ -14,7 +14,9 @@ $(document).ready(function() {
 
 function load() {
     setTimeout(() => {
-        $('.loading').addClass("fadeOut");
+        $('.loading').addClass("fadeOut", function() {
+            $('.loading').css("display", "none");
+        });
         $('.preloader-wrapper').addClass("fadeOutUp");
         $('.main-app').show(650);
     }, 1000)
@@ -46,16 +48,41 @@ function reminderCreationMenu() {
     const elem = document.querySelectorAll('.creation-menu')[0];
     if ($('.creation-menu').is(":hidden")) {
         $('.creation-menu').show();
-        $('body>*:not(.creation-menu)').addClass("blur");
+        $('.main-app>*:not(.creation-menu)').addClass("blur");
         $('.creation-menu').removeClass("flipOutX");
         $('.creation-menu').addClass("flipInX");
     } else {
-        $('body>*:not(.creation-menu)').removeClass("blur");
+        $('.main-app>*:not(.creation-menu)').removeClass("blur");
         $('.creation-menu').removeClass("flipInX");
         $('.creation-menu').addClass("flipOutX");
         setTimeout(() => { $('.creation-menu').hide(); }, 600);
         return;
     }
+}
+
+function actionAddHandler(type) {
+    const stuff = storage.get(`${type}s`)
+    const data = {
+        title: $('.reminder-creation-title').val(), //string
+        description: $('.reminder-creation-description').val(), //string
+        attachments: null, //array
+        created: null, //date object
+        updated: null, //date object
+        color: null, //string or number/hex code
+        font: null, //object that contains font.size, font.family and font.style (bold, italics, etc)
+        completed: null, //boolean
+        dueDate: null, //date object
+        tags: null, //object placeholder that will contain labels
+        important: null,
+        comments: null
+    }
+    stuff.push(data);
+    return add(type, stuff);
+}
+
+function add(type, data) {
+    //data is any object, like a reminder object
+    storage.set(`${type}s`, data)
 }
 
 function populateReminderSection() {

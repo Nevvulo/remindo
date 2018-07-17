@@ -87,7 +87,7 @@
                             <!-- Text input area for title -->
                             <div class="input-field col s9">
                                 <i class="material-icons prefix">title</i>
-                                <input id="icon_prefix" type="text" data-length="128" class="validate">
+                                <input id="icon_prefix" type="text" data-length="128" class="validate reminder-creation-title">
                                 <label for="icon_prefix">Title</label>
                             </div>
                         </div>
@@ -103,8 +103,8 @@
                     </div>
 
                     <div class="card-action">
-                    <a href="#" class="btn yellow darken-2" onclick="saveReminder(element)">Save</a>
-                    <a href="#" class="btn yellow darken-2" onclick="reminderCreationMenu()">Cancel</a>
+                        <a href="#" class="btn yellow darken-2" onclick="actionAddHandler('reminder'); reminderCreationMenu();">Save</a>
+                        <a href="#" class="btn yellow darken-2" onclick="reminderCreationMenu()">Cancel</a>
                     </div>
 
                 </div>
