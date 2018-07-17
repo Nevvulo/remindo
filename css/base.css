@@ -1,7 +1,20 @@
+body {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
 .loading {
     position: fixed;
-    top: 30%;
-    left: 50%;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 50;
+    margin: auto;
+    opacity: 1;
+    overflow: visible; 
 }
 
 .main-title {
@@ -34,21 +47,11 @@
     animation: smooth-blur 0.5s forwards;
 }
 
+@keyframes smooth-fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
 
-/* label color */
-.input-field label {
-    color: #bdbdbd;
-  }
-  /* label focus color */
-  .input-field input[type=text]:focus + label {
-    color: #fafafa;
-  }
-  /* label underline focus color */
-  .input-field input[type=text]:focus {
-    border-bottom: 1px solid #000;
-    box-shadow: 0 1px 0 0 #000;
-  }
-  /* icon prefix focus color */
-  .input-field .prefix.active {
-    color: #000;
-  }
+.fade-out {
+    animation: smooth-fade-out 1s forwards;
+}

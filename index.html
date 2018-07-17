@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    <!-- Loading -->
     <div class="loading animated">
         <center>
             <h1 class="loading-title animated zoomInDown">Remindo</h1>
@@ -64,60 +65,67 @@
         </center>
     </div>
 
-    <center>
-        <h1 class="main-title animated zoomInDown">Remindo</h1>
-        <hr class="horizontal-line slideInUp">
-    </center>
 
-    
-    <div class="creation-menu animated" style="display: none;">
-        <div class="row">
-            <div class="col s12 m12">
-              <div class="card red darken-1 z-depth-5">
+    <!-- Main application -->
+    <div class="main-app">
+        <center>
+            <h1 class="main-title animated zoomInDown">Remindo</h1>
+            <hr class="horizontal-line slideInUp">
+        </center>
 
-                <div class="card-content white-text">
-                    <div class="row">
-                        <!-- Text input area for title -->
-                        <div class="input-field col s9">
-                            <i class="material-icons prefix">title</i>
-                            <input id="icon_prefix" type="text" data-length="128" class="validate">
-                            <label for="icon_prefix">Title</label>
+        <div class="reminder-container"> 
+            
+        </div>
+        
+        <div class="creation-menu animated" style="display: none;">
+            <div class="row">
+                <div class="col s12 m12">
+                <div class="card red darken-1 z-depth-5">
+
+                    <div class="card-content white-text">
+                        <div class="row">
+                            <!-- Text input area for title -->
+                            <div class="input-field col s9">
+                                <i class="material-icons prefix">title</i>
+                                <input id="icon_prefix" type="text" data-length="128" class="validate">
+                                <label for="icon_prefix">Title</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Text input area for description -->
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">description</i>
+                                <textarea id="icon_prefix2" class="materialize-textarea reminder-creation-description"></textarea>
+                                <label for="icon_prefix2">Description</label>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <!-- Text input area for description -->
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">description</i>
-                            <textarea id="icon_prefix2" class="materialize-textarea reminder-creation-description"></textarea>
-                            <label for="icon_prefix2">Description</label>
-                        </div>
+                    <div class="card-action">
+                    <a href="#" class="btn yellow darken-2" onclick="saveReminder(element)">Save</a>
+                    <a href="#" class="btn yellow darken-2" onclick="reminderCreationMenu()">Cancel</a>
                     </div>
-                </div>
 
-                <div class="card-action">
-                  <a href="#" class="btn yellow darken-2" onclick="saveReminder(element)">Save</a>
-                  <a href="#" class="btn yellow darken-2" onclick="reminderCreationMenu()">Cancel</a>
                 </div>
-
-              </div>
+                </div>
             </div>
-          </div>
-    </div>
-    
+        </div>
+        
 
-    <div class="control-panel">
-        <div class="fixed-action-btn">
-            <a class="btn-floating btn-large red">
-              <i class="large material-icons">add</i>
-            </a>
-            <ul>
-              <li><a class="btn-floating z-depth-2 waves-effect waves-light red action-btn-add" onclick="actionButtonClicked(this)"><i class="material-icons">insert_chart</i></a></li>
-              <li><a class="btn-floating z-depth-2 waves-effect waves-light yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-              <li><a class="btn-floating z-depth-2 waves-effect waves-light green"><i class="material-icons">publish</i></a></li>
-              <li><a class="btn-floating z-depth-2 waves-effect waves-light blue"><i class="material-icons">attach_file</i></a></li>
-            </ul>
-          </div>
+        <div class="control-panel">
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large red">
+                <i class="large material-icons">add</i>
+                </a>
+                <ul>
+                <li><a class="btn-floating z-depth-2 waves-effect waves-light red action-btn-add" onclick="actionButtonClicked(this)"><i class="material-icons">insert_chart</i></a></li>
+                <li><a class="btn-floating z-depth-2 waves-effect waves-light yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+                <li><a class="btn-floating z-depth-2 waves-effect waves-light green"><i class="material-icons">publish</i></a></li>
+                <li><a class="btn-floating z-depth-2 waves-effect waves-light blue"><i class="material-icons">attach_file</i></a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </body>
 

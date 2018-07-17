@@ -1,6 +1,5 @@
 const Storage = require('./js/structures/Storage.js')
-
-const data = new Storage({
+const storage = new Storage({
     name: 'data',
     defaults: {
         "reminders": [],
@@ -9,13 +8,17 @@ const data = new Storage({
     }
   });
 
+$(document).ready(function() {
+    load();
+});
+
 function load() {
-    $('body>*:not(.loading)').hide();
-    setTimeout(() => { 
-        $('.preloader-wrapper').show();
-        $('.preloader-wrapper').addClass("fadeInUp");
-    }, 600)
-    //$('.loading').addClass("zoomOut");
+    setTimeout(() => {
+        $('.loading').addClass("fadeOut");
+        $('.preloader-wrapper').addClass("fadeOutUp");
+        $('.main-app').show(650);
+    }, 1000)
+    populateReminderSection();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -23,7 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const instances = M.FloatingActionButton.init(elems, {
       direction: 'left'
     });
-    load();
+
+    $('.main-app').hide();
+
+    setTimeout(() => {
+        $('.preloader-wrapper').show();
+        $('.preloader-wrapper').addClass("fadeInUp");
+    }, 600)
+
   });
 
 function actionButtonClicked(element) {
@@ -46,6 +56,27 @@ function reminderCreationMenu() {
         setTimeout(() => { $('.creation-menu').hide(); }, 600);
         return;
     }
+}
 
-    
+function populateReminderSection() {
+    console.log("RENDERING");
+    let html = '';
+    for (let reminder of storage.data.reminders) {
+        html += `<div class="row">
+        <div class="col">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+            <span class="card-title"><b>${reminder.title}</b></span>
+            <p>${reminder.description}</p>
+            </div>
+            <div class="card-action">
+            <a href="#" class="btn yellow darken-3" onclick="viewReminder(this)">View</a>
+            <a href="#" class="btn green lighten-1" onclick="markAsComplete(this)">Mark as completed</a>
+            </div>
+        </div>
+        </div>
+    </div>`;
+        html += '</div>';
+    }
+    $('.reminder-container').html(html);
 }
