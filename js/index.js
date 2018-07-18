@@ -1,4 +1,5 @@
 const Storage = require('./js/structures/Storage.js')
+const Reminder = require('./js/structures/Reminder.js')
 const storage = new Storage({
     name: 'data',
     defaults: {
@@ -14,12 +15,16 @@ $(document).ready(function() {
 
 function load() {
     setTimeout(() => {
-        $('.loading').addClass("fadeOut", function() {
-            $('.loading').css("display", "none");
+        $('.loading').addClass("fadeOut");
+        $('.loading').slideUp(750, function() {
+            $(this).css("display", "none");
+            $(this).remove();
         });
+        
         $('.preloader-wrapper').addClass("fadeOutUp");
-        $('.main-app').show(650);
+        $('.main-app').show(650)
     }, 1000)
+    
     populateReminderSection();
 }
 
@@ -38,6 +43,70 @@ document.addEventListener('DOMContentLoaded', function() {
 
   });
 
+function dialog(message, severity, buttons = []) {
+    let color;
+    let html = '';
+
+    switch (severity) {
+        case "critical":
+            color = "red";
+            severity = "Error";
+            break;
+        
+        case "warning":
+            color = "orange";
+            severity = "Warning";
+            break;
+        
+        case "info":
+            color = "teal";
+            severity = "Information";
+            break;
+
+        default:
+            color = "blue-grey";
+            severity = "Dialog";
+    }
+
+    html += `<div class="row dialog">
+    <div class="col">
+    <div class="card z-depth-5 ${color} darken-1">
+        <div class="card-content white-text">
+        <span class="card-title"><b>${severity}</b></span>
+        <p>${message}</p>
+        </div>
+        <div class="card-action">
+        <a href="#" class="btn green darken-2" onclick="viewReminder(this)">${buttons[0] || "Yes"}</a>
+        <a href="#" class="btn red darken-1" onclick="markAsComplete(this)">${buttons[1] || "No"}</a>
+        </div>
+    </div>
+    </div>
+</div>`;
+    html += '</div>';
+
+    $('.main-app-dialog').html("");
+    $('.main-app-dialog').html(html);
+
+    dialogBlurBackground("main-app-dialog");
+}
+
+function dialogBlurBackground(dialog = "current-selected-dialog") {
+    if ($(`.${dialog}`).is(":hidden")) {
+        $(`.${dialog}`).show();
+        $(`.main-app>*:not(.${dialog})`).addClass("blur");
+        $(`.${dialog}`).addClass("current-selected-dialog");
+        $(`.${dialog}`).removeClass("zoomOut");
+        $(`.${dialog}`).addClass("zoomIn");
+    } else {
+        $(`.main-app>*:not(.${dialog})`).removeClass("blur");
+        $(`.${dialog}`).removeClass("zoomIn");
+        $(`.${dialog}`).addClass("zoomOut");
+        $(`.${dialog}`).removeClass("current-selected-dialog");
+        setTimeout(() => { $(`.${dialog}`).hide(); }, 600);
+        return;
+    }
+}
+
 function actionButtonClicked(element) {
     console.log(element)
     reminderCreationMenu();
@@ -46,49 +115,51 @@ function actionButtonClicked(element) {
 function reminderCreationMenu() {
     const body = document.getElementsByTagName('body')[0];
     const elem = document.querySelectorAll('.creation-menu')[0];
-    if ($('.creation-menu').is(":hidden")) {
-        $('.creation-menu').show();
-        $('.main-app>*:not(.creation-menu)').addClass("blur");
-        $('.creation-menu').removeClass("flipOutX");
-        $('.creation-menu').addClass("flipInX");
-    } else {
-        $('.main-app>*:not(.creation-menu)').removeClass("blur");
-        $('.creation-menu').removeClass("flipInX");
-        $('.creation-menu').addClass("flipOutX");
-        setTimeout(() => { $('.creation-menu').hide(); }, 600);
-        return;
-    }
+
+    $('#action-color-picker').colorpicker({
+        component: '.colorpicker-btn'
+    });
+
+    dialogBlurBackground("creation-menu");
 }
 
 function actionAddHandler(type) {
-    const stuff = storage.get(`${type}s`)
-    const data = {
+    const dataType = storage.get(`${type}s`)
+    //TODO: use reminder structure instead of manually creating object
+    const item = new Reminder({
         title: $('.reminder-creation-title').val(), //string
         description: $('.reminder-creation-description').val(), //string
-        attachments: null, //array
-        created: null, //date object
-        updated: null, //date object
-        color: null, //string or number/hex code
-        font: null, //object that contains font.size, font.family and font.style (bold, italics, etc)
-        completed: null, //boolean
-        dueDate: null, //date object
-        tags: null, //object placeholder that will contain labels
+        attachments: null,
+        created: Date.now(),
+        updated: Date.now(),
+        color: null,
+        font: null,
+        completed: null,
+        dueDate: null,
+        tags: null,
         important: null,
         comments: null
-    }
-    stuff.push(data);
-    return add(type, stuff);
+    })
+    dataType.push(item);
+    return add(type, dataType);
 }
 
 function add(type, data) {
     //data is any object, like a reminder object
     storage.set(`${type}s`, data)
+    populateReminderSection();
+}
+
+function markAsComplete() {
+    //Implement an ID based system for reminders to remove reminders once created
+    //Just pass in the reminder ID and remove/archive it
+    populateReminderSection();
 }
 
 function populateReminderSection() {
-    console.log("RENDERING");
+    $('.reminder-container').html("");
     let html = '';
-    for (let reminder of storage.data.reminders) {
+    for (let reminder of storage.get("reminders")) {
         html += `<div class="row">
         <div class="col">
         <div class="card blue-grey darken-1">
@@ -105,5 +176,6 @@ function populateReminderSection() {
     </div>`;
         html += '</div>';
     }
+    $('.reminder-container').html("");
     $('.reminder-container').html(html);
 }
