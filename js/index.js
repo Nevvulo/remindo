@@ -150,9 +150,14 @@ function add(type, data) {
     populateReminderSection();
 }
 
-function markAsComplete() {
+function markAsComplete(id) {
     //Implement an ID based system for reminders to remove reminders once created
-    //Just pass in the reminder ID and remove/archive it
+    //Just pass in the reminder ID and remove/archive it 
+    let reminders = storage.get("reminders");
+    const reminder = reminders.findIndex(x => x.id === id)
+    if (!reminder) new Error("There's no reminder that exists under that ID.");
+    storage.set("reminders", reminders.splice(reminder, 1));
+
     populateReminderSection();
 }
 

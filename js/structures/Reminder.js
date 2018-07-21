@@ -1,6 +1,10 @@
+const Storage = require('./Storage.js')
+
 class Reminder {
     constructor(reminder) {
-        this.id = reminder.id || 0
+        const last = this.lastReminder || {};
+        let id = Number(last.id + 1) || 0;
+        this.id = id;
         this.title = reminder.title || null; //string
         this.description = reminder.description || null; //string
         this.attachments = reminder.attachments || null; //array
@@ -15,6 +19,17 @@ class Reminder {
         this.comments = reminder.comments || null; //array
     }
 
+    get lastReminder() {
+        const storage = new Storage({
+            name: 'data',
+            defaults: {
+                "reminders": [],
+                "todos": [],
+                "tasks": []
+            }
+          });
+        return storage.get("reminders").slice(-1)[0];
+    }
 }
 
 module.exports = Reminder;

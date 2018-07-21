@@ -7,15 +7,25 @@ class Storage {
     const userDataPath = (electron.app || electron.remote.app).getPath('userData');
     this.path = path.join(userDataPath, `${options.name}.json`);
     this.data = parseDataFile(this.path, options.defaults);
+    this.options = options || {};
   }
   
+  update() {
+    this.data = parseDataFile(this.path, this.options.defaults || {});
+  }
+
+  save() {
+    fs.writeFileSync(this.path, JSON.stringify(this.data))
+    this.update();
+  }
+
   get(key) {
     return this.data[key];
   }
   
   set(key, val) {
     this.data[key] = val;
-    fs.writeFileSync(this.path, JSON.stringify(this.data));
+    this.save();
   }
 }
 
