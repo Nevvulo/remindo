@@ -154,9 +154,9 @@ function markAsComplete(id) {
     //Implement an ID based system for reminders to remove reminders once created
     //Just pass in the reminder ID and remove/archive it 
     let reminders = storage.get("reminders");
-    const reminder = reminders.findIndex(x => x.id === id)
-    if (!reminder) new Error("There's no reminder that exists under that ID.");
-    storage.set("reminders", reminders.splice(reminder, 1));
+    console.log(reminders)
+    console.log(reminders.filter(item => item.id != id))
+    storage.set("reminders", reminders.filter(item => item.id != id)); 
 
     populateReminderSection();
 }
@@ -173,8 +173,8 @@ function populateReminderSection() {
             <p>${reminder.description}</p>
             </div>
             <div class="card-action">
-            <a href="#" class="btn yellow darken-3" onclick="viewReminder(this)">View</a>
-            <a href="#" class="btn green lighten-1" onclick="markAsComplete(this)">Mark as completed</a>
+            <a href="#" class="btn yellow darken-3" onclick="viewReminder(${reminder.id})">View</a>
+            <a href="#" class="btn green lighten-1" onclick="markAsComplete(${reminder.id})">Mark as completed</a>
             </div>
         </div>
         </div>

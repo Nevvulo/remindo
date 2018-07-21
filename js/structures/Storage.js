@@ -10,13 +10,8 @@ class Storage {
     this.options = options || {};
   }
   
-  update() {
-    this.data = parseDataFile(this.path, this.options.defaults || {});
-  }
-
   save() {
     fs.writeFileSync(this.path, JSON.stringify(this.data))
-    this.update();
   }
 
   get(key) {
