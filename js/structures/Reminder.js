@@ -1,16 +1,9 @@
 const Storage = require('./Storage.js')
-const storage = new Storage({
-    name: 'data',
-    defaults: {
-        "reminders": [],
-        "todos": [],
-        "tasks": []
-    }
-  });
 
 class Reminder {
     constructor(reminder) {
         const last = this.lastReminder || {};
+        console.log(last.id)
         let id = last.id ? Number(last.id + 1) : 0;
         this.id = id;
         this.title = reminder.title || null; //string
@@ -28,6 +21,14 @@ class Reminder {
     }
 
     get lastReminder() {
+        const storage = new Storage({
+            name: 'data',
+            defaults: {
+                "reminders": [],
+                "todos": [],
+                "tasks": []
+            }
+          });
         return storage.get("reminders").slice(-1)[0];
     }
 }
