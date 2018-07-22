@@ -23,9 +23,10 @@ function load() {
         
         $('.preloader-wrapper').addClass("fadeOutUp");
         $('.main-app').show(650)
+        populateReminderSection();
     }, 1000)
     
-    populateReminderSection();
+    
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -35,6 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     $('.main-app').hide();
+
+    $(function () {
+        var options = {
+            cellHeight: 80,
+            verticalMargin: 10
+        };
+        $('.grid-stack').gridstack(options);
+    });
 
     setTimeout(() => {
         $('.preloader-wrapper').show();
@@ -162,25 +171,39 @@ function markAsComplete(id) {
 }
 
 function populateReminderSection() {
-    $('.reminder-container').html("");
-    let html = '';
+    console.log($('.grid-stack'))
+    const grid = $('.grid-stack').data('gridstack');
+    grid.removeAll();
+    let html = "";
     for (let reminder of storage.get("reminders")) {
+        html += `
+        <div class="grid-stack-item"
+            data-gs-x="0" data-gs-y="0"
+            data-gs-width="4" data-gs-height="2">
+                <div class="grid-stack-item-content">`
         html += `<div class="row">
         <div class="col">
-        <div class="card blue-grey darken-1">
+        <div class="card blue-grey darken-1" style="background-color: ${reminder.color}">
+            <span height="5px"></span>
             <div class="card-content white-text">
-            <span class="card-title"><b>${reminder.title}</b></span>
-            <p>${reminder.description}</p>
+                <span class="card-title">
+                <b>${reminder.title}</b>
+                </span>
+                <p>${reminder.description}</p>
             </div>
             <div class="card-action">
-            <a href="#" class="btn yellow darken-3" onclick="viewReminder(${reminder.id})">View</a>
-            <a href="#" class="btn green lighten-1" onclick="markAsComplete(${reminder.id})">Mark as completed</a>
+                <a href="#" class="btn yellow darken-3" onclick="viewReminder(${reminder.id})">View</a>
+                <a href="#" class="btn green lighten-1" onclick="markAsComplete(${reminder.id})">Mark as completed</a>
             </div>
         </div>
         </div>
     </div>`;
-        html += '</div>';
+        html += '</div></div></div>';
+
+        grid.addWidget($(`html`), 0, 0, 120, 60);
     }
-    $('.reminder-container').html("");
-    $('.reminder-container').html(html);
+    
+    
+    //$('.reminder-container').html("");
+    //$('.reminder-container').html(html);
 }
