@@ -4,7 +4,7 @@ class Reminder {
     constructor(reminder) {
         const last = this.lastReminder || {};
         console.log(last.id)
-        let id = last.id ? Number(last.id + 1) : 0;
+        let id = isNaN(Number(last.id+1)) ? 0 : Number(last.id + 1);
         this.id = id;
         this.title = reminder.title || null; //string
         this.description = reminder.description || null; //string
@@ -29,7 +29,10 @@ class Reminder {
                 "tasks": []
             }
           });
-        return storage.get("reminders").slice(-1)[0];
+        const reminders = storage.get("reminders").sort(item => item.id)
+        console.log(reminders)
+        console.log(reminders[reminders.length-1])
+        return reminders[reminders.length-1];
     }
 }
 
