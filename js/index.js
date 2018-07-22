@@ -165,10 +165,9 @@ function markAsComplete(id) {
 function populateReminderSection() {
     console.log($('.grid-stack'))
     const grid = $('.grid-stack').data('gridstack');
-    grid.removeAll()
-    let html = "";
+    grid.removeAll();
     for (let reminder of storage.get("reminders")) {
-        html += `<div>
+        grid.addWidget($(`<div>
         <div style="overflow: hidden;" class="grid-stack-item-content card blue-grey darken-1" style="background-color: ${reminder.color}">
             <div class="card-content white-text">
                 <span class="card-title">
@@ -181,12 +180,6 @@ function populateReminderSection() {
                 <a href="#" class="btn green lighten-1" onclick="markAsComplete(${reminder.id})">Mark as completed</a>
             </div>
         </div>
-        </div>`;
-
-        grid.addWidget($(`${html}`), 0, 0, Math.floor(1 + 3 * Math.random()), Math.floor(1 + 3 * Math.random()), true);
+        </div>`), 0, 0, Math.floor(1 + 3 * Math.random()), Math.floor(1 + 3 * Math.random()), true);
     }
-    
-    
-    //$('.reminder-container').html("");
-    //$('.reminder-container').html(html);
 }
