@@ -77,3 +77,12 @@ body {
 .fade-out {
     animation: smooth-fade-out 1s forwards;
 }
+
+@keyframes smooth-darken {
+    from { background-color: transparent; }
+    to { background-color: black; opacity: 0.66; }
+}
+
+.darken {
+    animation: smooth-darken 0.33s forwards;
+}

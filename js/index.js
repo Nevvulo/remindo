@@ -30,12 +30,14 @@ function load() {
             var element = event.target;
             saveGridPositions(grid, element)
         });
-        $(".grid-stack-item-content").hover(
+        $(".grid-stack-item").hover(
             function(){
-                $(this).find('.hover-options-reminder').fadeIn(350)
+                $(this).find('.hover-options-reminder').fadeIn(100)
+                $(this).find(`.grid-stack-item-content>*:not(.hover-options-reminder)`).addClass("darken")
             },
             function(){
-                $(this).find('.hover-options-reminder').fadeOut(450)
+                $(this).find('.hover-options-reminder').fadeOut(170)
+                $(this).find(`.grid-stack-item-content>*:not(.hover-options-reminder)`).removeClass("darken")
             }
         );
         $('.grid-stack').on('gsresizestop', function(event, ui) {
