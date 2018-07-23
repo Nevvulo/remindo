@@ -138,7 +138,7 @@ function actionAddHandler(type) {
         attachments: null,
         created: Date.now(),
         updated: Date.now(),
-        color: $('#action-color-picker').val(),
+        color: $('.colorpicker-btn').css('backgroundColor'),
         font: null,
         completed: null,
         dueDate: null,
@@ -171,9 +171,7 @@ function saveGridPositions(grid, element) {
     let reminders = storage.get("reminders");
     var node = $(element).data('_gridstack_node');
     if (!node) return;
-    console.log($(element).data("objectId"))
-    console.log(node)
-    console.log(reminders[$(element).data("objectId")])
+    if (!reminders[$(element).data("objectId")]) throw new Error("Reminder ID doesn't exist")
     reminders[$(element).data("objectId")].position = {
         x: node.x,
         y: node.y,
@@ -195,7 +193,7 @@ function populateReminderSection() {
         if (!positions) positions = {x: 0, y: 0, width: Math.floor(1 + 6 * Math.random()), height: Math.floor(1 + 5 * Math.random())}
         console.log(reminder.color)
         grid.addWidget($(`<div data-object-id=${reminder.id}>
-        <div style="overflow: hidden;" class="grid-stack-item-content card blue-grey darken-1" style="background-color: ${reminder.color} !important;">
+        <div style="overflow: hidden; background-color: ${reminder.color || "#546e7a"} !important;" class="grid-stack-item-content card">
             <div class="card-content white-text">
                 <span class="card-title">
                 <b>${reminder.title}</b>

@@ -20,7 +20,7 @@ body {
 .main-title {
     text-transform: uppercase;
     font-size: 16px;
-    color: grey;
+    color: "#546e7a";
     letter-spacing: 0.6px;
     font-weight: bold;
     font-family: "Roboto", sans-serif;
