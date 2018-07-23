@@ -24,6 +24,11 @@ function load() {
         $('.preloader-wrapper').addClass("fadeOutUp");
         $('.main-app').show(650)
         populateReminderSection();
+        $('.grid-stack').on('dragstop', function(event, ui) {
+            var grid = this;
+            var element = event.target;
+            saveGridPositions(grid, element)
+        });
     }, 1000)
     
     
@@ -109,7 +114,6 @@ function dialogBlurBackground(dialog = "current-selected-dialog") {
 }
 
 function actionButtonClicked(element) {
-    console.log(element)
     reminderCreationMenu();
 }
 
@@ -130,10 +134,11 @@ function actionAddHandler(type) {
     const item = new Reminder({
         title: $('.reminder-creation-title').val(), //string
         description: $('.reminder-creation-description').val(), //string
+        position: {x: 0, y: 0, width: Math.floor(1 + 6 * Math.random()), height: Math.floor(1 + 5 * Math.random())},
         attachments: null,
         created: Date.now(),
         updated: Date.now(),
-        color: null,
+        color: $('#action-color-picker').val(),
         font: null,
         completed: null,
         dueDate: null,
@@ -162,13 +167,35 @@ function markAsComplete(id) {
     populateReminderSection();
 }
 
+function saveGridPositions(grid, element) {
+    let reminders = storage.get("reminders");
+    var node = $(element).data('_gridstack_node');
+    if (!node) return;
+    console.log($(element).data("objectId"))
+    console.log(node)
+    console.log(reminders[$(element).data("objectId")])
+    reminders[$(element).data("objectId")].position = {
+        x: node.x,
+        y: node.y,
+        width: node.width,
+        height: node.height
+    };
+    storage.set("reminders", reminders)
+    return false;
+}
+
 function populateReminderSection() {
-    console.log($('.grid-stack'))
     const grid = $('.grid-stack').data('gridstack');
     grid.removeAll();
+
     for (let reminder of storage.get("reminders")) {
-        grid.addWidget($(`<div>
-        <div style="overflow: hidden;" class="grid-stack-item-content card blue-grey darken-1" style="background-color: ${reminder.color}">
+        const position = reminder.position;
+        let positions = position
+        console.log(positions)
+        if (!positions) positions = {x: 0, y: 0, width: Math.floor(1 + 6 * Math.random()), height: Math.floor(1 + 5 * Math.random())}
+        console.log(reminder.color)
+        grid.addWidget($(`<div data-object-id=${reminder.id}>
+        <div style="overflow: hidden;" class="grid-stack-item-content card blue-grey darken-1" style="background-color: ${reminder.color} !important;">
             <div class="card-content white-text">
                 <span class="card-title">
                 <b>${reminder.title}</b>
@@ -180,6 +207,8 @@ function populateReminderSection() {
                 <a href="#" class="btn green lighten-1" onclick="markAsComplete(${reminder.id})">Mark as completed</a>
             </div>
         </div>
-        </div>`), 0, 0, Math.floor(1 + 3 * Math.random()), Math.floor(1 + 3 * Math.random()), true);
+        </div>`), positions.x, positions.y, positions.width, positions.height);
+        console.log(positions.x)
+        //Math.floor(1 + 3 * Math.random())
     }
 }

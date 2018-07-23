@@ -9,10 +9,6 @@ class Storage {
     this.data = parseDataFile(this.path, options.defaults);
     this.options = options || {};
   }
-  
-  save() {
-    fs.writeFileSync(this.path, JSON.stringify(this.data))
-  }
 
   get(key) {
     return this.data[key];
@@ -20,7 +16,7 @@ class Storage {
   
   set(key, val) {
     this.data[key] = val;
-    this.save();
+    fs.writeFileSync(this.path, JSON.stringify(this.data))
   }
 }
 

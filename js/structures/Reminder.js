@@ -8,6 +8,7 @@ class Reminder {
         this.id = id;
         this.title = reminder.title || null; //string
         this.description = reminder.description || null; //string
+        this.position = reminder.position || null; //object like {x: 0, y: 0, width: 2, height: 2}
         this.attachments = reminder.attachments || null; //array
         this.created = reminder.createdAt || null; //date object
         this.updated = reminder.updatedAt || null; //date object
