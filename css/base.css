@@ -26,6 +26,15 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
+.hover-options-reminder {
+    position: absolute;
+    top: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
 .dialog {
     position: fixed;
     top: 25%;

@@ -14,6 +14,7 @@ $(document).ready(function() {
 });
 
 function load() {
+    //main initialization
     setTimeout(() => {
         $('.loading').addClass("fadeOut");
         $('.loading').slideUp(750, function() {
@@ -25,6 +26,19 @@ function load() {
         $('.main-app').show(650)
         populateReminderSection();
         $('.grid-stack').on('dragstop', function(event, ui) {
+            var grid = this;
+            var element = event.target;
+            saveGridPositions(grid, element)
+        });
+        $(".grid-stack-item-content").hover(
+            function(){
+                $(this).find('.hover-options-reminder').fadeIn(350)
+            },
+            function(){
+                $(this).find('.hover-options-reminder').fadeOut(450)
+            }
+        );
+        $('.grid-stack').on('gsresizestop', function(event, ui) {
             var grid = this;
             var element = event.target;
             saveGridPositions(grid, element)
@@ -130,10 +144,9 @@ function reminderCreationMenu() {
 
 function actionAddHandler(type) {
     const dataType = storage.get(`${type}s`)
-    //TODO: use reminder structure instead of manually creating object
     const item = new Reminder({
-        title: $('.reminder-creation-title').val(), //string
-        description: $('.reminder-creation-description').val(), //string
+        title: $('.reminder-creation-title').val(),
+        description: $('.reminder-creation-description').val(),
         position: {x: 0, y: 0, width: Math.floor(1 + 6 * Math.random()), height: Math.floor(1 + 5 * Math.random())},
         attachments: null,
         created: Date.now(),
@@ -160,8 +173,6 @@ function markAsComplete(id) {
     //Implement an ID based system for reminders to remove reminders once created
     //Just pass in the reminder ID and remove/archive it 
     let reminders = storage.get("reminders");
-    console.log(reminders)
-    console.log(reminders.filter(item => item.id != id))
     storage.set("reminders", reminders.filter(item => item.id != id)); 
 
     populateReminderSection();
@@ -185,7 +196,7 @@ function saveGridPositions(grid, element) {
 function populateReminderSection() {
     const grid = $('.grid-stack').data('gridstack');
     grid.removeAll();
-
+    //TODO: fix bug where some reminders will become really skinny
     for (let reminder of storage.get("reminders")) {
         const position = reminder.position;
         let positions = position
@@ -194,15 +205,22 @@ function populateReminderSection() {
         console.log(reminder.color)
         grid.addWidget($(`<div data-object-id=${reminder.id}>
         <div style="overflow: hidden; background-color: ${reminder.color || "#546e7a"} !important;" class="grid-stack-item-content card">
-            <div class="card-content white-text">
-                <span class="card-title">
-                <b>${reminder.title}</b>
-                </span>
-                <p>${reminder.description}</p>
-            </div>
-            <div class="card-action">
-                <a href="#" class="btn yellow darken-3" onclick="viewReminder(${reminder.id})">View</a>
-                <a href="#" class="btn green lighten-1" onclick="markAsComplete(${reminder.id})">Mark as completed</a>
+            <div class="wrapper" style="width: 100%; height: 100%; position: relative;">
+
+                <div class="card-content white-text">
+                    <span class="card-title">
+                    <b>${reminder.title}</b>
+                    </span>
+                    <p>${reminder.description}</p>
+                </div>
+
+                <div class="hover-options-reminder animated" style="display: none;">
+                    <center>
+                        <a href="#" class="btn yellow darken-3" onclick="viewReminder(${reminder.id})">View</a>
+                        <a href="#" class="btn green lighten-1" onclick="markAsComplete(${reminder.id})">Mark as completed</a>
+                    </center>
+                </div>
+
             </div>
         </div>
         </div>`), positions.x, positions.y, positions.width, positions.height);
