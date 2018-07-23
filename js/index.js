@@ -30,14 +30,14 @@ function load() {
             var element = event.target;
             saveGridPositions(grid, element)
         });
-        $(".grid-stack-item").hover(
+        $(".grid-stack-item-content").hover(
             function(){
                 $(this).find('.hover-options-reminder').fadeIn(100)
-                $(this).find(`.grid-stack-item-content>*:not(.hover-options-reminder)`).addClass("darken")
+                $(this).addClass("darken")
             },
             function(){
                 $(this).find('.hover-options-reminder').fadeOut(170)
-                $(this).find(`.grid-stack-item-content>*:not(.hover-options-reminder)`).removeClass("darken")
+                $(this).removeClass("darken")
             }
         );
         $('.grid-stack').on('gsresizestop', function(event, ui) {

@@ -79,8 +79,8 @@ body {
 }
 
 @keyframes smooth-darken {
-    from { background-color: transparent; }
-    to { background-color: black; opacity: 0.66; }
+    from { background-color: transparent; color: black; opacity: 1; }
+    to { background-color: black; color: black; opacity: 0.66; }
 }
 
 .darken {
