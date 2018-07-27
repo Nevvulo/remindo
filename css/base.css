@@ -3,6 +3,40 @@ body {
     margin: 0 !important;
 }
 
+@keyframes transition-textarea {
+    from {
+        color: black;
+    }
+    to {
+        color: grey;
+    }
+}
+
+textarea.remindo-input {
+    border: 0px solid #000000;
+    padding: 7px;
+}
+
+input.remindo-input {
+    border: 0px solid #000000;
+    padding: 7px;
+}
+
+textarea.remindo-input:not(focus) {
+    animation: transition-textarea 0.4s forwards;
+    transition: transition-textarea 0.4s forwards;
+}
+
+textarea.remindo-input:focus {
+    animation: transition-textarea 0.4s forwards;
+    animation-direction: reverse;
+    transition: transition-textarea 0.4s forwards;
+}
+
+.top-action-bar.create-reminder {
+    background-color: lightgrey;
+}
+
 .loading {
     position: fixed;
     top: 50%;
@@ -29,10 +63,8 @@ body {
 .hover-options-reminder {
     position: absolute;
     top: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .dialog {
@@ -46,10 +78,6 @@ body {
     margin: auto;
     opacity: 1;
     overflow: visible; 
-}
-
-.horizontal-line {
-    width: 33%;
 }
 
 .control-panel {
@@ -78,11 +106,19 @@ body {
     animation: smooth-fade-out 1s forwards;
 }
 
-@keyframes smooth-darken {
-    from { background-color: transparent; color: black; opacity: 1; }
-    to { background-color: black; color: black; opacity: 0.66; }
+@keyframes smooth-options-toggle {
+    from { 
+        background-color: transparent;
+        color: black; 
+        opacity: 1; 
+    }
+    to { 
+        background-color: black; 
+        color: black;
+        opacity: 0.66; 
+    }
 }
 
-.darken {
-    animation: smooth-darken 0.33s forwards;
+.options-toggle {
+    animation: smooth-options-toggle 0.33s forwards;
 }

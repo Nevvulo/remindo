@@ -6,7 +6,11 @@ class Storage {
   constructor(options) {
     const userDataPath = (electron.app || electron.remote.app).getPath('userData');
     this.path = path.join(userDataPath, `${options.name}.json`);
-    this.data = parseDataFile(this.path, options.defaults);
+    this.data = parseDataFile(this.path, {
+      "reminders": [],
+      "settings": [],
+      "archive": []
+    });
     this.options = options || {};
   }
 

@@ -3,14 +3,7 @@ const Reminder = require('./js/structures/Reminder.js')
 const Storage = require('./js/structures/Storage.js')
 
 let win;
-const data = new Storage({
-    name: 'data',
-    defaults: {
-        "reminders": [],
-        "todos": [],
-        "tasks": []
-    }
-  });
+const data = new Storage({ name: 'data' });
 
 async function initialize() {
     win = new BrowserWindow({width: 800, height: 600});

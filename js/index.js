@@ -1,13 +1,6 @@
 const Storage = require('./js/structures/Storage.js')
 const Reminder = require('./js/structures/Reminder.js')
-const storage = new Storage({
-    name: 'data',
-    defaults: {
-        "reminders": [],
-        "todos": [],
-        "tasks": []
-    }
-  });
+const storage = new Storage({ name: 'data' });
 
 $(document).ready(function() {
     load();
@@ -30,24 +23,12 @@ function load() {
             var element = event.target;
             saveGridPositions(grid, element)
         });
-        $(".grid-stack-item-content").hover(
-            function(){
-                $(this).find('.hover-options-reminder').fadeIn(100)
-                $(this).addClass("darken")
-            },
-            function(){
-                $(this).find('.hover-options-reminder').fadeOut(170)
-                $(this).removeClass("darken")
-            }
-        );
         $('.grid-stack').on('gsresizestop', function(event, ui) {
             var grid = this;
             var element = event.target;
             saveGridPositions(grid, element)
         });
     }, 1000)
-    
-    
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -64,6 +45,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 600)
 
   });
+
+$('textarea.remindo-input').keypress(function(obj) {
+    if (obj.keyCode == 13) {
+
+    }
+});
 
 function dialog(message, severity, buttons = []) {
     let color;
@@ -98,8 +85,8 @@ function dialog(message, severity, buttons = []) {
         <p>${message}</p>
         </div>
         <div class="card-action">
-        <a href="#" class="btn green darken-2" onclick="viewReminder(this)">${buttons[0] || "Yes"}</a>
-        <a href="#" class="btn red darken-1" onclick="markAsComplete(this)">${buttons[1] || "No"}</a>
+        <a href="#" class="btn green darken-2" onclick="return true;">${buttons[0] || "Yes"}</a>
+        <a href="#" class="btn red darken-1" onclick="return false;">${buttons[1] || "No"}</a>
         </div>
     </div>
     </div>
@@ -147,8 +134,8 @@ function reminderCreationMenu() {
 function actionAddHandler(type) {
     const dataType = storage.get(`${type}s`)
     const item = new Reminder({
-        title: $('.reminder-creation-title').val(),
-        description: $('.reminder-creation-description').val(),
+        title: $('.reminder-creation-title').val() || $('input.remindo-input.remindo-creation-title').val(),
+        description: $('.reminder-creation-description').val() || $('textarea.remindo-input.remindo-creation-description').val(),
         position: {x: 0, y: 0, width: Math.floor(1 + 6 * Math.random()), height: Math.floor(1 + 5 * Math.random())},
         attachments: null,
         created: Date.now(),
@@ -171,10 +158,13 @@ function add(type, data) {
     populateReminderSection();
 }
 
-function markAsComplete(id) {
+function archive(id) {
     //Implement an ID based system for reminders to remove reminders once created
     //Just pass in the reminder ID and remove/archive it 
     let reminders = storage.get("reminders");
+    let archive = storage.get("archive");
+    archive.push(reminders[id])
+    storage.set("archive", archive)
     storage.set("reminders", reminders.filter(item => item.id != id)); 
 
     populateReminderSection();
@@ -198,7 +188,7 @@ function saveGridPositions(grid, element) {
 function populateReminderSection() {
     const grid = $('.grid-stack').data('gridstack');
     grid.removeAll();
-    //TODO: fix bug where some reminders will become really skinny
+
     for (let reminder of storage.get("reminders")) {
         const position = reminder.position;
         let positions = position
@@ -219,13 +209,25 @@ function populateReminderSection() {
                 <div class="hover-options-reminder animated" style="display: none;">
                     <center>
                         <a href="#" class="btn yellow darken-3" onclick="viewReminder(${reminder.id})">View</a>
-                        <a href="#" class="btn green lighten-1" onclick="markAsComplete(${reminder.id})">Mark as completed</a>
+                        <a href="#" class="btn cyan darken-3" onclick="editReminder(${reminder.id})">Edit</a>
+                        <a href="#" class="btn red lighten-1" onclick="archive(${reminder.id})">Archive</a>
                     </center>
                 </div>
 
             </div>
         </div>
         </div>`), positions.x, positions.y, positions.width, positions.height);
+
+        $(".grid-stack-item").hover(
+            function(){
+                $(this).find('.hover-options-reminder').fadeIn(100)
+                $('.grid-stack-item-content .wrapper').addClass("options-toggle")
+            },  
+            function(){
+                $(this).find('.hover-options-reminder').fadeOut(100)
+                $('.grid-stack-item-content .wrapper').removeClass("options-toggle")
+            }
+        );
         console.log(positions.x)
         //Math.floor(1 + 3 * Math.random())
     }

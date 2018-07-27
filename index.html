@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link href="css/base.css" rel="stylesheet">
     <!-- JQuery v 3.2.1 --> 
     <script src="https://code.jquery.com/jquery-3.3.1.js" onload="window.$ = window.jQuery = module.exports;"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -22,11 +23,9 @@
 
     <!-- Animate.css -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" rel="stylesheet">
-    
+
     <!-- Remindo -->
-    <link href="css/base.css" rel="stylesheet">
     <script src="js/index.js"></script>
-    
 </head>
 <body>
 
@@ -98,8 +97,15 @@
     <!-- Main application -->
     <div class="main-app">
         <center>
-            <h1 class="main-title animated zoomInDown">Remindo</h1>
-            <hr class="horizontal-line slideInUp">
+            <div class="top-section" style="width: 33%;">
+                <h1 class="main-title animated zoomInDown">Remindo</h1>
+                <hr class="horizontal-line slideInUp">
+                <div class="top-action-bar create-reminder">
+                    <div contenteditable="true" aria-multiline="true" role="textbox" class="remindo-input remindo-input-title" aria-label="Title" tabindex="0"></div>
+                    <br>
+                    <div contenteditable="true" aria-multiline="true" role="textbox" class="remindo-input remindo-input-title" aria-label="Description" tabindex="0"></div>
+                </div>
+            </div>
         </center>
 
         <div class="reminder-container">
@@ -162,15 +168,9 @@
 
         <div class="control-panel">
             <div class="fixed-action-btn">
-                <a class="btn-floating btn-large red">
-                <i class="large material-icons">add</i>
+                <a onclick="actionButtonClicked(this)" class="btn-floating btn-large red">
+                    <i class="large material-icons">add</i>
                 </a>
-                <ul>
-                <li><a class="btn-floating z-depth-2 waves-effect waves-light red action-btn-add" onclick="actionButtonClicked(this)"><i class="material-icons">insert_chart</i></a></li>
-                <li><a class="btn-floating z-depth-2 waves-effect waves-light yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-                <li><a class="btn-floating z-depth-2 waves-effect waves-light green"><i class="material-icons">publish</i></a></li>
-                <li><a class="btn-floating z-depth-2 waves-effect waves-light blue"><i class="material-icons">attach_file</i></a></li>
-                </ul>
             </div>
         </div>
     </div>
