@@ -1,28 +1,24 @@
-const { app, BrowserWindow } = require('electron');
-const Reminder = require('./js/structures/Reminder.js')
-const Storage = require('./js/structures/Storage.js')
-
-let win;
-const data = new Storage({ name: 'data' });
+const { app, BrowserWindow } = require("electron")
+let win
 
 async function initialize() {
-    win = new BrowserWindow({width: 800, height: 600});
-    win.loadFile('index.html');
-    win.webContents.openDevTools();
+	win = new BrowserWindow({width: 800, height: 600})
+	win.loadFile("index.html")
+	win.webContents.openDevTools()
 
-    win.on('closed', () => { win = null });
+	win.on("closed", () => { win = null })
 }
 
-app.on('ready', initialize);
+app.on("ready", initialize)
 
-//When all windows on the application are closed
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit();
+// When all windows on the application are closed
+app.on("window-all-closed", () => {
+	if (process.platform !== "darwin") app.quit()
 })
 
-app.on('activate', () => {
-    if (win === null) initialize();
+app.on("activate", () => {
+	if (win === null) initialize()
 })
 
-process.on('unhandledRejection', console.error)
+process.on("unhandledRejection", console.error)
 

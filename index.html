@@ -45,8 +45,7 @@
         }
         </style>
     <!-- Loading -->
-    <div class="loading animated">
-        <center>
+    <div class="loading animated margin-center text-center">
             <h1 class="loading-title animated zoomInDown">Remindo</h1>
             <br>
             <div class="preloader-wrapper small active animated" style="display: none;">
@@ -90,23 +89,28 @@
                     </div>
                 </div>
             </div>
-        </center>
     </div>
 
 
     <!-- Main application -->
     <div class="main-app">
-        <center>
-            <div class="top-section" style="width: 33%;">
-                <h1 class="main-title animated zoomInDown">Remindo</h1>
-                <hr class="horizontal-line slideInUp">
-                <div class="top-action-bar create-reminder">
-                    <div contenteditable="true" aria-multiline="true" role="textbox" class="remindo-input remindo-input-title" aria-label="Title" tabindex="0"></div>
-                    <br>
-                    <div contenteditable="true" aria-multiline="true" role="textbox" class="remindo-input remindo-input-title" aria-label="Description" tabindex="0"></div>
-                </div>
-            </div>
-        </center>
+		<div class="top-section center" style="width: 33%;">
+			<h1 class="main-title animated zoomInDown">Remindo</h1>
+			<hr class="horizontal-line slideInUp">
+			<div class="reminder-creation-renderer expanded-top-section">
+				<div class="retracted-top-section">
+						<input></input>
+				</div>
+
+				<div class="card lightgrey darken-1 z-depth-5 create-reminder">
+					<h5>Title</h5>
+					<div contenteditable="true" aria-multiline="true" role="textbox" class="remindo-input remindo-input-title" aria-label="Title" tabindex="0"></div>
+					<br>
+					<h5>Description</h5>
+					<div contenteditable="true" aria-multiline="true" role="textbox" class="remindo-input remindo-input-description" aria-label="Description" tabindex="0"></div>
+				</div>
+			</div> 
+		</div>
 
         <div class="reminder-container">
             <div class="grid-stack">

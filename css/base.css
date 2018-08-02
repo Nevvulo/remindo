@@ -3,38 +3,45 @@ body {
     margin: 0 !important;
 }
 
-@keyframes transition-textarea {
-    from {
-        color: black;
-    }
-    to {
-        color: grey;
-    }
+h5 {
+	font-size: 14px;
+	font-family: "Century Gothic", sans-serif;
+	color: darkslategray;
+
 }
 
-textarea.remindo-input {
-    border: 0px solid #000000;
-    padding: 7px;
+.center {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	vertical-align: middle;
 }
 
-input.remindo-input {
-    border: 0px solid #000000;
-    padding: 7px;
+.text-center {
+	text-align: center;
 }
 
-textarea.remindo-input:not(focus) {
-    animation: transition-textarea 0.4s forwards;
-    transition: transition-textarea 0.4s forwards;
+.margin-center {
+	margin-left: auto;
+	margin-right: auto;
+	vertical-align: middle
 }
 
-textarea.remindo-input:focus {
-    animation: transition-textarea 0.4s forwards;
-    animation-direction: reverse;
-    transition: transition-textarea 0.4s forwards;
+div.remindo-input {
+    border: 0.5px solid #888888;
+    margin-top: 24px;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-bottom: 24px;
 }
 
-.top-action-bar.create-reminder {
-    background-color: lightgrey;
+div.remindo-input.input-showcase-retracted {
+	box-shadow: 0.3px 0.3px 0.3px 0.6px black;
+    border: 0.5px solid #888888;
+    margin-top: 24px;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-bottom: 24px;
 }
 
 .loading {
