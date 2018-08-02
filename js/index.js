@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 $("textarea.remindo-input").keypress(function(obj) {
 	if (obj.keyCode == 13) {
-		
+
 	}
 })
 
@@ -192,9 +192,7 @@ function populateReminderSection() {
 	for (const reminder of storage.get("reminders")) {
 		const position = reminder.position
 		let positions = position
-		console.log(positions)
 		if (!positions) positions = {x: 0, y: 0, width: Math.floor(1 + 6 * Math.random()), height: Math.floor(1 + 5 * Math.random())}
-		console.log(reminder.color)
 		grid.addWidget($(`<div data-object-id=${reminder.id}>
         <div style="overflow: hidden; background-color: ${reminder.color || "#546e7a"} !important;" class="grid-stack-item-content card">
             <div class="wrapper" style="width: 100%; height: 100%; position: relative;">
@@ -216,19 +214,32 @@ function populateReminderSection() {
 
             </div>
         </div>
-        </div>`), positions.x, positions.y, positions.width, positions.height)
+        </div>`), positions.x, positions.y, positions.width, positions.height);
 
 		$(".grid-stack-item").hover(
 			function(){
-				$(this).find(".hover-options-reminder").fadeIn(100)
-				$(".grid-stack-item-content .wrapper").addClass("options-toggle")
+				$(this).find(".hover-options-reminder").fadeIn(100);
+				$(".grid-stack-item-content .wrapper").addClass("options-toggle");
 			},  
 			function(){
-				$(this).find(".hover-options-reminder").fadeOut(100)
-				$(".grid-stack-item-content .wrapper").removeClass("options-toggle")
+				$(this).find(".hover-options-reminder").fadeOut(100);
+				$(".grid-stack-item-content .wrapper").removeClass("options-toggle");
 			}
 		)
-		console.log(positions.x)
+		console.log(positions.x);
 		// Math.floor(1 + 3 * Math.random())
 	}
+}
+
+$(document).on("click", ".remindo-input", function() {
+	if ($(".retracted-top-section").is(":visible") !== false) toggleTextbox();
+});
+
+$("html").not(".top-section").click(function() {
+	if ($(".retracted-top-section").is(":visible") == false) toggleTextbox();
+});
+
+function toggleTextbox() {
+	$(".expanded-top-section").toggle();
+	$(".retracted-top-section").toggle();
 }

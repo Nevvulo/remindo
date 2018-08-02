@@ -20,10 +20,6 @@
             "error",
             "double"
         ],
-        "semi": [
-            "error",
-            "never"
-        ],
         "prefer-template": 2,
         "template-curly-spacing": [
             "error",
