@@ -235,7 +235,7 @@ $(document).on("click", ".remindo-input", function() {
 	if ($(".retracted-top-section").is(":visible") !== false) toggleTextbox();
 });
 
-$("html").not(".top-section").click(function() {
+$("body").not(".top-section").on("click", function() {
 	if ($(".retracted-top-section").is(":visible") == false) toggleTextbox();
 });
 

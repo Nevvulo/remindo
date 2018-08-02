@@ -34,7 +34,8 @@
             margin-left: 15%;
             margin-right: 15%;
             padding-right: 10%;
-            padding-left: 10%;
+			padding-left: 10%;
+			background-color: #f5f5f5;
         }
 
         .grid-stack-item-content {
@@ -103,12 +104,49 @@
 				</div>
 
 				<div class="card lightgrey darken-1 z-depth-5 create-reminder expanded-top-section" style="display: none;">
-					<h5>Title</h5>
-					<div contenteditable="true" aria-multiline="true" role="textbox" class="remindo-input remindo-input-title" aria-label="Title" tabindex="0"></div>
-					<br>
-					<h5>Description</h5>
-					<div contenteditable="true" aria-multiline="true" role="textbox" class="remindo-input remindo-input-description" aria-label="Description" tabindex="0"></div>
-				</div>
+					
+					
+					<div class="card-content white-text">
+							<span class="card-title" style="font-family: 'Roboto', sans-serif;"><b>Create new reminder</b></span>
+	
+							<div class="row">
+								<!-- Text input area for title -->
+								<div class="input-field col s9">
+									<i class="material-icons prefix">title</i>
+									<div id="icon_prefix" contenteditable="true" aria-multiline="true" role="textbox" class="remindo-input remindo-input-title" aria-label="Title" tabindex="0"></div>
+									<label for="icon_prefix">Title</label>
+								</div>
+	
+								<div class="col s3">
+									<div id="action-color-picker" class="file-field" style="top: 10px;">
+										<div class="btn colorpicker-btn"></div>
+										<div class="file-path-wrapper">
+											<input type="text" />
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="row">
+								<!-- Text input area for description -->
+								<div class="input-field col s12">
+									<i class="material-icons prefix">description</i>
+									<div id="icon_prefix2" contenteditable="true" aria-multiline="true" role="textbox" class="remindo-input remindo-input-description" aria-label="Description" tabindex="0"></div>
+									<label for="icon_prefix2">Description</label>
+								</div>
+							</div>
+	
+							<div class="row">
+								
+							</div>
+						</div>
+	
+						<div class="card-action">
+							<a href="#" class="btn yellow darken-2" onclick="actionAddHandler('reminder'); reminderCreationMenu();">Save</a>
+							<a href="#" class="btn yellow darken-2" onclick="reminderCreationMenu()">Cancel</a>
+						</div>
+	
+					</div>
 			</div> 
 		</div>
 
