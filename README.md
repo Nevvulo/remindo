@@ -1,3 +1,12 @@
+# Important Note
+Remindo development is currently **on hold**. This is because Google just recently released their new version of the [Material guidelines](https://www.youtube.com/watch?v=XGH7xQpgt-U) (which are absolutely lovely). Because my main dependency (materialize) does not support the new guidelines as of yet, and due to the fact that [enabling the experimental "import" keyword that Google's official module uses](git@github.com:material-components/material-components-web.git) is extremely annoying and difficult for Electron instances (it works fine on newer browsers), I will have to halt development until:
+* A newer version of Node which allows the use of this keyword without annoying flags and file extensions
+* A version of the official Google module which doesn't rely on `import`
+* I fork the Google module and replace all instances of `import` with `require` (unlikely seeing as it's used often)
+* `materialize` (the main dependency I use at the moment for all things material design) creates a new version featuring the new guideline updates
+
+Thanks for your patience.
+
 # Remindo
 *A simple yet powerful application that can remind you of certain tasks.*
 
