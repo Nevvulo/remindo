@@ -3,7 +3,7 @@ Remindo development is currently **on hold**. This is because Google just recent
 * A newer version of Node which allows the use of this keyword without annoying flags and file extensions
 * A version of the official Google module which doesn't rely on `import`
 * I fork the Google module and replace all instances of `import` with `require` (unlikely seeing as it's used often)
-* `materialize` (the main dependency I use at the moment for all things material design) creates a new version featuring the new guideline updates
+* `materialize` (the main dependency I use at the moment for all things material design) creates a new version featuring the new guideline updates (**UPDATE**: [The owner of the repo has stated that this is on the roadmap](https://github.com/Dogfalo/materialize/issues/6004))
 
 Thanks for your patience.
 
